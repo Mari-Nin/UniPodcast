@@ -9,16 +9,10 @@ class Rubric(BaseModel):
     description = db.Column(db.Text, nullable=False)
     duration = db.Column(db.Time, nullable=False)
     uploaded_at = db.Column(db.Date, nullable=False)
+    category_id = db.Column(db.Integer, db.ForeignKey("category.id"))
     
-   
+    category = db.relationship("Category")
 
-class RubricCategory(BaseModel):
-     __tablename__ = 'rubric_category'
 
-     rubric_id = db.Column(db.Integer,db.ForeignKey('rubric.id'))
-     category_id = db.Column(db.Integer, db.ForeignKey("category.id"))
-
-     rubric = db.relationship("Rubric")
-     category = db.relationship("Category")
 
 

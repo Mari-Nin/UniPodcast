@@ -11,16 +11,10 @@ class Video(BaseModel):
     duration = db.Column(db.Time, nullable=False)
     uploaded_at = db.Column(db.Date, nullable=False)
     in_slider = db.Column(db.Boolean, default=False)
-
-
-class VideoCategory(BaseModel):
-    __tablename__ = 'video_category'
-
-    video_id = db.Column(db.Integer,db.ForeignKey('video.id'))
     category_id = db.Column(db.Integer,db.ForeignKey("category.id"))
-
-    video = db.relationship('Video')
     category = db.relationship('Category')
+
+    
 
 
 
