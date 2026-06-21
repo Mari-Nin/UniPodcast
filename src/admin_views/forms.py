@@ -19,3 +19,4 @@ class LoginForm(FlaskForm):
         
         self.user=user
 
+0

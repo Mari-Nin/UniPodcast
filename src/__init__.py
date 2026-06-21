@@ -3,10 +3,12 @@ from flask import Flask
 from src.admin_views import SecureIndexView
 from src.admin_views import AdminUserView, CategoryView, RubricView, VideoView
 from src.config import Config
-from src.ext import db, admin, login_manager,migrate
+from src.ext import db, admin, login_manager,migrate,api
 from src.models import User, Category, Rubric, Video
 from src.commands import init_db,populate_db
-
+from src.endpoints.category.category import CategoryApi
+from src.endpoints.rubric.rubric import RubricApi
+from src.endpoints.video.video import VideoApi
 
 def create_app():
     app = Flask(__name__)
@@ -31,6 +33,8 @@ def register_extensions(app):
     @login_manager.user_loader
     def load_user(user_id):
         return User.query.get(int(user_id))
+    
+    api.init_app(app)
 
     admin.init_app(app, index_view=SecureIndexView())
 

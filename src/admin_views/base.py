@@ -50,4 +50,5 @@ class SecureIndexView(AdminIndexView):
     @expose('/logout')
     def logout_view(self):
         logout_user()
-        return redirect('/admin/login/')
+        return redirect(url_for('.login_view'))
+        # return redirect('/admin/login/')
