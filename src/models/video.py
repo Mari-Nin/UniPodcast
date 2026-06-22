@@ -12,10 +12,10 @@ class Video(BaseModel):
     uploaded_at = db.Column(db.Date, nullable=False)
     in_slider = db.Column(db.Boolean, default=False)
     category_id = db.Column(db.Integer,db.ForeignKey("category.id"))
+    
     category = db.relationship('Category',back_populates = 'videos')
 
     
-
 
 
 
