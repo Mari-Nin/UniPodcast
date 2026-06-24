@@ -7,6 +7,12 @@ from src.models import User,Category
 from src.ext import db
 
 
+@command('init_db')
+@with_appcontext
+def init_db():
+    click.echo('creating database')
+    db.create_all()
+    click.echo('Creating done!')
 
 @command('populate_db')
 @with_appcontext

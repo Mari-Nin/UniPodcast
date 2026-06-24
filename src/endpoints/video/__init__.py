@@ -6,12 +6,9 @@ from src.ext import api
 
 video_filter_parser = RequestParser()
 video_filter_parser.add_argument('category',type=str,help='Filter by category')
-video_filter_parser.add_argument('time',type=str,help='Filter by duration ')
+video_filter_parser.add_argument('duration',type=str,help='Filter by duration ')
 video_filter_parser.add_argument('page',type=int,default=1,help='page filter')
 video_filter_parser.add_argument('next',type=int,default =5,help='>')
-
-
-
 
 video_model = api.model('video', {
                 'id': fields.Integer,
@@ -25,3 +22,5 @@ video_model = api.model('video', {
                 'category_id': fields.Integer
 
             })
+
+
