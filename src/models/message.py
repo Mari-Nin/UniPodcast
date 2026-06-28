@@ -12,3 +12,4 @@ class Message(BaseModel):
     company = db.Column(db.String(16))
     company_text = db.Column(db.Text())
 
+

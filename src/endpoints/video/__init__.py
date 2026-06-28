@@ -1,5 +1,5 @@
 
-from flask_restx import fields,inputs
+from flask_restx import fields
 from flask_restx.reqparse import RequestParser
 
 from src.ext import api

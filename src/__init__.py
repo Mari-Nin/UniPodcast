@@ -9,6 +9,8 @@ from src.commands import populate_db,init_db
 from src.endpoints.category.category import CategoryApi
 from src.endpoints.rubric.rubric import RubricApi
 from src.endpoints.video.video import VideoApi
+from src.endpoints.member.member import MemberApi
+from src.endpoints.message.message import MessageApi
 
 def create_app():
     app = Flask(__name__)

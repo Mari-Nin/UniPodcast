@@ -3,7 +3,6 @@ from src.admin_views import SecureModelView
 class MessageView(SecureModelView):
     can_create=False
     can_delete=False
-    can_edit=False
     can_view_details=True
 
 
