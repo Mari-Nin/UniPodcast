@@ -6,13 +6,8 @@ class MessageView(SecureModelView):
     can_view_details=True
 
 
-    column_list = ['name','surname','text','phone_number']
+    column_list = ['name','surname','text','phone_number','seen']
 
-    column_labels = {'name':'სახელი',
-                     'surname': 'გვარი',
-                     'phone_number': 'ტელეფონის ნომერი',
-                     'company': 'კომპანია',
-
-                    }
-
+    column_editable_list = ['name','surname','text','phone_number','seen']
     
+    column_filters = ['name','surname','text','phone_number','seen']

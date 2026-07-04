@@ -17,7 +17,7 @@ class VideoApi(Resource):
         category_name = args.get('category')
         video_duration=args.get('duration')
         page = args.get('page')
-        next_page = args.get('next',5)
+        per_page = args.get('per_page')
 
         videos = Video.query
         if category_name:
@@ -29,14 +29,11 @@ class VideoApi(Resource):
         if video_duration:
             videos = videos.filter(cast(Video.duration,String).like(f'%{video_duration}%') )
 
-        if page:
-            current_page = page
-        else:
-            current_page=1
+        current_page = page or 1
 
-        pagin_rubrics = videos.paginate(page=current_page,per_page=next_page,error_out=False)
+        pagin_videos = videos.paginate(page=current_page,per_page=per_page,error_out=False)
 
-        return pagin_rubrics.items,200
+        return pagin_videos.items,200
 
 
 @api.route('/slider')
@@ -46,3 +43,13 @@ class SliderApi(Resource):
         slider_videos = Video.query.filter(Video.in_slider == True).all()
         return slider_videos
     
+
+
+@api.route('/latest_videos')
+class LatestVideos(Resource):
+
+    @api.marshal_with(video_model, as_list=True)
+    def get(self):
+        videos = Video.query.order_by(Video.uploaded_at.desc()).limit(2).all()
+
+        return videos,200

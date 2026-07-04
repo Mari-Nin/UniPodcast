@@ -14,7 +14,7 @@ class RubricApi(Resource):
         args = rubric_filter_parser.parse_args()
         category_name = args.get('category')
         page = args.get('page')
-        next_page = args.get('next',5)
+        per_page = args.get('per_page')
 
         rubrics = Rubric.query
         if category_name:
@@ -24,12 +24,9 @@ class RubricApi(Resource):
             else:
                 return [],200
 
-        if page:
-            current_page = page
-        else:
-            current_page=1
+        current_page = page or 1
 
-        pagin_rubrics = rubrics.paginate(page=current_page,per_page=next_page,error_out=False)
+        pagin_rubrics = rubrics.paginate(page=current_page,per_page=per_page,error_out=False)
 
         return pagin_rubrics.items,200
     

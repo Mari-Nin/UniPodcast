@@ -11,5 +11,6 @@ class Message(BaseModel):
     phone_number = db.Column(db.String(12))
     company = db.Column(db.String(16))
     company_text = db.Column(db.Text())
+    seen = db.Column(db.Boolean, default = False)
 
 

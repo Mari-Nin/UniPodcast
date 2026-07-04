@@ -7,9 +7,9 @@ from src.ext import api
 
 
 rubric_filter_parser = RequestParser()
-rubric_filter_parser.add_argument('category',type=str,help='Filter by category')
-rubric_filter_parser.add_argument('page',type=int,default=1,help='page filter')
-rubric_filter_parser.add_argument('next',type=int,default =5,help='>')
+rubric_filter_parser.add_argument('category',type=str,help='Filter by category_name')
+rubric_filter_parser.add_argument('page',type=int,default=1,help='Page number for pagination')
+rubric_filter_parser.add_argument('per_page',type=int,default =5,help='Number of items per page')
 
 
 rubric_model = api.model('rubric', {

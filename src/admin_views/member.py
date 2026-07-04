@@ -15,12 +15,7 @@ class MemberView(SecureModelView):
 
     column_list = ['img','name_surname','role','in_link']
 
-    column_labels = {'img': 'ფოტო',
-                     'name_surname':'სახელი,გვარი',
-                     'role': 'როლი/სტატუსი',
-                     'in_link' : 'Linkedin'
-
-                    }
+    column_filters = ['name_surname','role','in_link']
 
     column_formatters = {
         'img': lambda v, c, m, p: Markup(
