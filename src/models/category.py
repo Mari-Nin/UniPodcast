@@ -11,5 +11,5 @@ class Category(BaseModel):
     news = db.relationship("News",back_populates="category")
 
     
-    def __str__(self):
+    def __repr__(self):
         return self.category

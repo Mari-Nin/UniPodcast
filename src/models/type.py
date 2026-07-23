@@ -10,5 +10,5 @@ class Type(BaseModel):
     news = db.relationship('News',back_populates = 'type')
     videos = db.relationship('Video',back_populates = 'type')
 
-    def __str__(self):
+    def __repr__(self):
         return self.name

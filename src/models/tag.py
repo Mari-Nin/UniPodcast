@@ -12,5 +12,5 @@ class Tag(BaseModel):
     news = db.relationship('News',secondary=tag_news,back_populates = 'tag')
     videos = db.relationship('Video',secondary=tag_video,back_populates = 'tag')
 
-    def __str__(self):
+    def __repr__(self):
         return self.name

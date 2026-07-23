@@ -24,7 +24,7 @@ class News(BaseModel):
     type_id = db.Column(db.Integer,db.ForeignKey('types.id'),nullable=False)
     type = db.relationship('Type',back_populates ='news')
 
-    def __str__(self):
+    def __repr__(self):
         return self.title
 
 

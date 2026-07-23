@@ -1,6 +1,5 @@
 import math
 from flask_restx import  Resource
-from sqlalchemy import cast,String
 from flask_restx import abort
 
 from src.ext import api
@@ -44,13 +43,16 @@ class VideoApi(Resource):
             videos = videos.filter(Video.title.ilike(f"%{title}%"))
 
         if uploaded_filter:
-                    videos = videos.filter(cast(Video.uploaded_at,String).ilike(f"%{uploaded_filter}%"))
+                    videos = videos.filter(Video.uploaded_at >=uploaded_filter)
 
         if tag_filter:
-             videos = videos.filter(Video.tag.any(Tag.name.ilike(f"%{tag_filter}%")))
-
+             tag_list = [t.strip() for t in tag_filter.split(",")]
+             for tag_name in tag_list:
+                videos = videos.filter(Video.tag.any(Tag.name.ilike(f"%{tag_name}%")))
+      
         if type_filter:
                      videos = videos.filter(Video.type.ilike(f"%{type_filter}%"))
+
 
         if start_video and end_video:
             start_time = f"00:{int(start_video):02d}:00"
@@ -91,20 +93,3 @@ class LatestVideosApi(Resource):
 
         return videos,200
 
-@api.route('/start_video/<int:id>')
-class StartVideoDuration(Resource):
-     def get(self,id):
-          video=Video.query.get_or_404(id)
-          return {'video_id':id,
-                  'title':video.title,
-                  'time':'00:00:00'
-               },200
-          
-@api.route('/end_video/<int:id>')
-class EndtVideoDuration(Resource):
-     def get(self,id):
-          video=Video.query.get_or_404(id)
-          return {'video_id':id,
-                  'title':video.title,
-                  'time':str(video.duration)
-               },200

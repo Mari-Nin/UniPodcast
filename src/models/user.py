@@ -21,5 +21,5 @@ class User(BaseModel,UserMixin):
     def password(self,password):
         self._password = generate_password_hash(password)
    
-    def __str__(self):
+    def __repr__(self):
         return self.name

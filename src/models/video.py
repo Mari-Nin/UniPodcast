@@ -13,7 +13,7 @@ class Video(BaseModel):
     img = db.Column(db.String(64), nullable=False)
     description = db.Column(db.Text, nullable=False)
     guests = db.Column(db.String(128), nullable=False)
-    duration = db.Column(db.Time, nullable=False)
+    duration = db.Column(db.String, nullable=False)
     video_link = db.Column(db.String,nullable = False)
     in_slider = db.Column(db.Boolean, default=False)
     uploaded_at = db.Column(db.Date, nullable=False)
@@ -26,7 +26,7 @@ class Video(BaseModel):
     type_id = db.Column(db.Integer,db.ForeignKey('types.id'),nullable=False)
     type = db.relationship('Type',back_populates='videos')
 
-    def __str__(self):
+    def __repr__(self):
         return self.title
 
 
