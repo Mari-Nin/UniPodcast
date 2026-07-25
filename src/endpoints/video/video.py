@@ -6,6 +6,7 @@ from src.ext import api
 from src.models import Video,Category
 from src.endpoints.video import video_filter_parser,video_model,videos_response_model
 from src.models.tag import Tag
+from src.models.type import Type
 
 
 @api.route('/video')
@@ -21,13 +22,14 @@ class VideoApi(Resource):
         type_filter = args.get('type')
         start_video=args.get('start_video')
         end_video=args.get('end_video')
+        duration_filter=args.get('duration')
         uploaded_filter=args.get('uploaded_at')
         page = args.get('page')
         per_page = args.get('per_page')
 
         videos = Video.query
         if category_name:
-            category_filter = Category.query.filter(Category.category==category_name).first()
+            category_filter = Category.query.filter(Category.category.ilike(f"%{category_name}%")).first()
             if category_filter:
                 videos = videos.filter(Video.category_id==category_filter.id)
             else:
@@ -51,13 +53,17 @@ class VideoApi(Resource):
                 videos = videos.filter(Video.tag.any(Tag.name.ilike(f"%{tag_name}%")))
       
         if type_filter:
-                     videos = videos.filter(Video.type.ilike(f"%{type_filter}%"))
+                     videos = videos.filter(Video.type.has(Type.name.ilike(f"%{type_filter}%")))
 
 
         if start_video and end_video:
             start_time = f"00:{int(start_video):02d}:00"
             end_time = f"00:{int(end_video):02d}:00"
             videos=videos.filter(Video.duration.between(start_time,end_time))
+
+        if duration_filter:
+             duration_format=f"00:{int(duration_filter):02d}:00"
+             videos = videos.filter(Video.duration==duration_format)
        
         current_page = page 
 

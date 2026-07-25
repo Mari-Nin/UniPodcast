@@ -12,7 +12,7 @@ class News(BaseModel):
     title = db.Column(db.String(128), nullable=False)
     img = db.Column(db.String(64), nullable=False)
     description = db.Column(db.Text, nullable=False)
-    duration = db.Column(db.Time, nullable=False)
+    duration = db.Column(db.String, nullable=False)
     news_link = db.Column(db.String,nullable = False)
     uploaded_at = db.Column(db.Date, nullable=False)
 
