@@ -5,11 +5,11 @@ from src.ext import db
 from src.models import Message
 from src.endpoints.message import message_model,message_parser
 
-def check_length(data,min_length=2,max_length=50):
+def check_input_data(data,field_data,min_length=2,max_length=50):
     if len(data) <min_length:
-        api.abort (400, f'შეიყვანეთ მინიმუმ {min_length} სიმბოლო')
+        api.abort (400, f'{field_data}->შეიყვანეთ მინიმუმ {min_length} სიმბოლო')
     elif len(data)>max_length:
-        api.abort(400, f'დასაშვებია მაქსიმუმ {max_length} სიმბოლო')
+        api.abort(400, f'{field_data}->დასაშვებია მაქსიმუმ {max_length} სიმბოლო')
     else:
         return data
 
@@ -22,14 +22,15 @@ class MessageApi(Resource):
     def post(self):
         args = message_parser.parse_args()
         new_message = Message(
-                    name = check_length(args['name']),
-                    surname = check_length(args['surname']),
-                    text = check_length(args['text'], min_length=5,max_length=200),
-                    phone_number = args.get('phone_number'),
-                    email = args['email'],
-                    company=args.get('company'),
-                    company_text=args.get('company_text')
-                     )
+            name = check_input_data(args['name'], 'name'),
+            surname = check_input_data(args['surname'], 'surname'),
+            text = check_input_data(args['text'], 'text', min_length=5, max_length=200),
+            phone_number = args.get('phone_number'),
+            email = check_input_data(args['email'], 'email'),
+            company = check_input_data(args.get('company'), 'company'),
+            company_text = check_input_data(args.get('company_text'), 'company_text', min_length=5, max_length=200)
+        )
+                            
         db.session.add(new_message)
         db.session.commit()
 
