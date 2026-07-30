@@ -6,6 +6,8 @@ from src.models import Message
 from src.endpoints.message import message_model,message_parser
 
 def check_input_data(data,field_data,min_length=2,max_length=50):
+    if data is None:
+        return None
     if len(data) <min_length:
         api.abort (400, f'{field_data}->შეიყვანეთ მინიმუმ {min_length} სიმბოლო')
     elif len(data)>max_length:
